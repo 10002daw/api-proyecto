@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!$request->user()->isAdmin()) {
-            return response()->json(['error' => 'Unauthorized adfaf'], 401);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $next($request);
     }
