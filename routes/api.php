@@ -16,12 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'middleware' => ['api'],
-    'prefix' => 'v1/auth'
-
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\Api\V1'
 ], function ($router) {
-    Route::post('login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login'])->name('login');
-    Route::post('logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout'])->name('logout');
-    Route::post('refresh', [\App\Http\Controllers\Api\V1\AuthController::class, 'refresh'])->name('refresh');
-    Route::post('me', [\App\Http\Controllers\Api\V1\AuthController::class, 'me'])->name('me');
-    Route::post('register', [\App\Http\Controllers\Api\V1\AuthController::class, 'register'])->name('register');
+    Route::group([
+        'prefix' => 'auth'
+    ], function () {
+        Route::post('login', 'AuthController@login')->name('login');
+        Route::post('logout', 'AuthController@logout')->name('logout');
+        Route::post('refresh', 'AuthController@refresh')->name('refresh');
+        Route::post('me', 'AuthController@me')->name('me');
+        Route::post('register', 'AuthController@register')->name('register');
+    });
 });
