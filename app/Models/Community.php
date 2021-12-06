@@ -13,4 +13,12 @@ class Community extends Model
     {
         return $this->belongsToMany(User::class)->withPivot('admin', 'owner')->withTimestamps();
     }
+
+    public function owner()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('admin', 'owner')
+            ->withTimestamps()
+            ->wherePivot('owner', 1);
+    }
 }

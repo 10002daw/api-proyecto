@@ -14,8 +14,14 @@ class CreateCommunityUserTable extends Migration
     public function up()
     {
         Schema::create('community_user', function (Blueprint $table) {
-            $table->foreignId('community_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('community_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->boolean('admin')->default(0);
             $table->boolean('owner')->default(0);
             $table->timestamps();

@@ -16,10 +16,10 @@ class CreateCommunitiesTable extends Migration
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
+            $table->string('name', 50)->unique();
             $table->string('description');
-            $table->boolean('public')->default(1);
-            $table->string('password');
+            $table->boolean('private')->default(0);
+            $table->string('password')->nullable();
         });
     }
 

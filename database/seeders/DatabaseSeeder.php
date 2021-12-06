@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Models\User;
+use App\Models\Community;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,20 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'admin' => 1,
         ]);
-        User::factory(10)->create();
+        // User::factory(50)
+        //     ->hasAttached(
+        //         Community::factory(),
+        //         [
+        //             'owner' => 1,
+        //             'admin' => 1,
+        //         ]
+        //     )
+        //     ->create();
+        User::factory(50)
+            ->create()
+            ->each(function($user) {
+                $communities = Community::factory(rand(0,2))->create();
+                $user->communities()->attach($communities, ['owner' => 1, 'admin' => 1]);
+            });
     }
 }
