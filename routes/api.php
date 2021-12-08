@@ -31,4 +31,11 @@ Route::group([
 
     Route::apiResource('communities', 'CommunityController')->middleware('auth.jwt');
 
+    Route::apiResource('communities.threads', 'CommunityThreadController')
+        ->only('index', 'store')
+        ->middleware('auth.jwt');
+
+    Route::apiResource('threads', 'ThreadController')
+        ->except('index')
+        ->middleware('auth.jwt');
 });

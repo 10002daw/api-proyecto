@@ -51,6 +51,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Community::class)->withPivot('admin', 'owner')->withTimestamps();
     }
 
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

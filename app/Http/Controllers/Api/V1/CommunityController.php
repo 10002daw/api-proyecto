@@ -139,6 +139,6 @@ class CommunityController extends Controller
             return response()->json(['message' => 'Community delete succesfully']);
         }
 
-        return response()->json(['message' => 'Error to update community'], 500);
+        return response()->json(['message' => 'Error to delete community'], 500);
     }
 }

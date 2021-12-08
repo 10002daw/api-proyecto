@@ -21,4 +21,9 @@ class Community extends Model
             ->withTimestamps()
             ->wherePivot('owner', 1);
     }
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
 }
