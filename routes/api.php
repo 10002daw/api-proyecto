@@ -29,6 +29,8 @@ Route::group([
         Route::post('register', 'AuthController@register')->name('register');
     });
 
+    Route::apiResource('users', 'UserController')->middleware('auth.jwt');
+
     Route::apiResource('communities', 'CommunityController')->middleware('auth.jwt');
 
     Route::apiResource('communities.threads', 'CommunityThreadController')
