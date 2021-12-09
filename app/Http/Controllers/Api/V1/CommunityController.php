@@ -69,7 +69,8 @@ class CommunityController extends Controller
         $community->users()->attach($user, ['owner' => 1, 'admin' => 1]);
 
         if ($res) {
-            return response()->json(['message' => 'Community create succesfully'], 201);
+            $message = 'Community create succesfully';
+            return response()->json(compact('message', 'community'), 201);
         }
         return response()->json(['message' => 'Error to create community'], 500);
     }

@@ -48,12 +48,50 @@ class User extends Authenticatable implements JWTSubject
 
     public function communities()
     {
-        return $this->belongsToMany(Community::class)->withPivot('admin', 'owner')->withTimestamps();
+        return $this->belongsToMany(Community::class)
+            ->withPivot('admin', 'owner')
+            ->withTimestamps();
+    }
+
+    public function adminCommunities()
+    {
+        return $this->belongsToMany(Community::class)
+            ->withPivot('admin', 'owner')
+            ->withTimestamps()
+            ->wherePivot('admin', 1);
+    }
+
+    public function ownerCommunities()
+    {
+        return $this->belongsToMany(Community::class)
+            ->withPivot('admin', 'owner')
+            ->withTimestamps()
+            ->wherePivot('owner', 1);
     }
 
     public function threads()
     {
         return $this->hasMany(Thread::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function isPartOfCommunity(Community $community)
+    {
+        return $this->communities->contains($community->id);
+    }
+
+    public function isAdminOfCommunity(Community $community)
+    {
+        return $this->adminCommunities->contains($community->id);
+    }
+
+    public function isOwnerOfCommunity(Community $community)
+    {
+        return $this->ownerCommunities->contains($community->id);
     }
 
     /**

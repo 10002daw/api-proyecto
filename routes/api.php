@@ -38,4 +38,12 @@ Route::group([
     Route::apiResource('threads', 'ThreadController')
         ->except('index')
         ->middleware('auth.jwt');
+
+    Route::apiResource('threads.posts', 'ThreadPostController')
+        ->only('index', 'store')
+        ->middleware('auth.jwt');
+
+    Route::apiResource('posts', 'PostController')
+        ->except('index')
+        ->middleware('auth.jwt');
 });
