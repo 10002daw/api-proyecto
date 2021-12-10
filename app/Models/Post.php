@@ -9,6 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $touches = ['thread'];
+
     public function thread()
     {
         return $this->belongsTo(Thread::class);
