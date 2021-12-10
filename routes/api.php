@@ -33,6 +33,20 @@ Route::group([
 
     Route::apiResource('communities', 'CommunityController')->middleware('auth.jwt');
 
+    Route::post('/communities/{community}/users/{user}', 'CommunityUserController@addUserToCommunity')
+        ->name('community.user.store')
+        ->middleware('auth.jwt');
+    Route::delete('/communities/{community}/users/{user}', 'CommunityUserController@removeUserToCommunity')
+        ->name('community.user.delete')
+        ->middleware('auth.jwt');
+    // Route::update('/communities/{community}/users/{user}', 'CommunityUserController@update')
+    //     ->name('community.user.update')
+    //     ->middleware('auth.jwt');
+
+    Route::apiResource('communities.users', 'CommunityUserController')
+        ->only('store')
+        ->middleware('auth.jwt');
+
     Route::apiResource('communities.threads', 'CommunityThreadController')
         ->only('index', 'store')
         ->middleware('auth.jwt');
