@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserResource;
+use App\Http\Resources\V1\CommunityResource;
+use App\Http\Resources\V1\ThreadResource;
+use App\Http\Resources\V1\PostResource;
 use App\Http\Requests\V1\StoreUserRequest;
 use App\Http\Requests\V1\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Community;
+use App\Models\Thread;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -119,5 +125,26 @@ class UserController extends Controller
         }
 
         return response()->json(['message' => 'Error to delete user'], 500);
+    }
+
+    public function userCommunities(User $user)
+    {
+        return CommunityResource::collection(
+            $user->communities
+        );
+    }
+
+    public function userThreads(User $user)
+    {
+        return ThreadResource::collection(
+            $user->threads
+        );
+    }
+
+    public function userPosts(User $user)
+    {
+        return PostResource::collection(
+            $user->posts
+        );
     }
 }

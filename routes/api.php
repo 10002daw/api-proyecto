@@ -30,6 +30,15 @@ Route::group([
     });
 
     Route::apiResource('users', 'UserController')->middleware('auth.jwt');
+    Route::get('/users/{user}/communities', 'UserController@userCommunities')
+        ->name('user.community.index')
+        ->middleware('auth.jwt');
+    Route::get('/users/{user}/threads', 'UserController@userThreads')
+        ->name('user.thread.index')
+        ->middleware('auth.jwt');
+    Route::get('/users/{user}/posts', 'UserController@userPosts')
+        ->name('user.post.index')
+        ->middleware('auth.jwt');
 
     Route::apiResource('communities', 'CommunityController')->middleware('auth.jwt');
 
