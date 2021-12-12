@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Create a new CommunityController instance.
+     * Create a new UserController instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('auth.admin')->except(['index', 'show']);
+        $this->middleware('auth.admin')->only(['store', 'update', 'destroy']);
     }
 
     /**
@@ -42,6 +42,7 @@ class UserController extends Controller
                 ->paginate()
                 ->withQueryString()
         );
+        //return UserResource::collection(User::all());
     }
 
     /**
